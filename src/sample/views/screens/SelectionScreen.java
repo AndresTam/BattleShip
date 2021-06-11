@@ -6,13 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sample.views.connection.ClienteSocket;
+import sample.views.connection.ServidorSocket;
 
 public class SelectionScreen extends Stage implements EventHandler {
     private Scene escena;
@@ -22,12 +22,15 @@ public class SelectionScreen extends Stage implements EventHandler {
     private Button btnBoardSelection[][], btnVerticalCoordinates[], btnHorizontalCoordinates[], btnContinue;
     private String[] horizontalCoordinates = {"0","1","2","3","4","5","6","7","8","9"};
     private String[] verticalCoordinates   = {"10","20","30","40","50","60","70","80","90","100"};
-    private String[] imgPositions;
+    private String[] imgPositions, imgEnemyPosition;
     private Integer arrPosition;
+    private ServidorSocket server;
+    private TurnScreen turn;
 
     public SelectionScreen(int quant){
+        turn = new TurnScreen();
         UICreate(quant);
-        this.setTitle("Selecciona la posición");
+        this.setTitle("Selecciona del jugador 1");
         this.setScene(escena);
         this.show();
     }
@@ -72,7 +75,7 @@ public class SelectionScreen extends Stage implements EventHandler {
                         String position = "" + event.getSource();
                         if(arrPosition != quant) {
                             imgPositions[arrPosition] = pushedButton(position);
-                            System.out.println(pushedButton(position));
+                            new ClienteSocket().connectToServer(imgPositions[arrPosition]);
                             arrPosition += 1;
                         }
                         else{
@@ -92,7 +95,12 @@ public class SelectionScreen extends Stage implements EventHandler {
 
         btnContinue.setOnAction(event -> {
             if(arrPosition == quant){
+                turn.closeScreen(true);
+                server = new ServidorSocket();
+                shipEnemyPosition(quant);
                 new AlliedBoardScreen(imgPositions);
+                new EnemyBoardScreen(imgPositions, imgEnemyPosition,quant);
+                new TurnScreen().closeScreen(true);
                 this.close();
             } else{
                 Alert dialAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -121,6 +129,13 @@ public class SelectionScreen extends Stage implements EventHandler {
             }
         }
         return chain;
+    }
+
+    public void shipEnemyPosition(int total){
+        imgEnemyPosition = new String[total];
+        for(int i = 0; i < total; i++){
+            imgEnemyPosition[i] = server.iniciarServidor();
+        }
     }
 
     @Override

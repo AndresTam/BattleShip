@@ -3,16 +3,13 @@ package sample.views.screens;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class AlliedBoardScreen extends Stage implements EventHandler {
     private Scene escena;
@@ -22,11 +19,10 @@ public class AlliedBoardScreen extends Stage implements EventHandler {
     private Button btnBoardSelection[][], btnVerticalCoordinates[], btnHorizontalCoordinates[];
     private String[] horizontalCoordinates = {"0","1","2","3","4","5","6","7","8","9"};
     private String[] verticalCoordinates   = {"10","20","30","40","50","60","70","80","90","100"};
-    private String[] imgPositions;
 
     public AlliedBoardScreen(String[] imgPositions){
         UICreate(imgPositions);
-        this.setTitle("Selecciona la posición");
+        this.setTitle("Flota Aliada Jugador 1");
         this.setScene(escena);
         this.show();
     }

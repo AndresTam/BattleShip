@@ -3,16 +3,12 @@ package sample.views.screens;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import sample.views.connection.ClienteSocket;
 import sample.views.connection.ServidorSocket;
 
@@ -24,18 +20,21 @@ public class EnemyBoardScreen extends Stage implements EventHandler {
     private Button btnBoardSelection[][], btnVerticalCoordinates[], btnHorizontalCoordinates[];
     private String[] horizontalCoordinates = {"0","1","2","3","4","5","6","7","8","9"};
     private String[] verticalCoordinates   = {"10","20","30","40","50","60","70","80","90","100"};
-    private String[] imgPositions;
     private ClienteSocket client  = new ClienteSocket();
     private ServidorSocket server = new ServidorSocket();
+    private TurnScreen turn;
+    private WinScreen win;
+    private int aliadeCount = 0, enemyCount = 0;
 
-    public EnemyBoardScreen(String[] imgPositions){
-        UICreate(imgPositions);
-        this.setTitle("Selecciona la posición");
+    public EnemyBoardScreen(String[] imgPositions, String[] imgEnemyPosition,int total){
+        turn = new TurnScreen();
+        UICreate(imgPositions, imgEnemyPosition,total);
+        this.setTitle("Tablero Enemigo Jugador 1");
         this.setScene(escena);
         this.show();
     }
 
-    public void UICreate(String[] imgPositions){
+    public void UICreate(String[] imgPositions, String[] imgEnemyPosition,int total){
         lblInstructions = new Label("Esta es la pantalla de tus naves con la cantidad total establecida");
         hBoxBtn         = new HBox[10];
         hBoxGrid        = new HBox();
@@ -69,17 +68,33 @@ public class EnemyBoardScreen extends Stage implements EventHandler {
                 btnBoardSelection[x][y].addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
+                        turn.closeScreen(true);
                         String position = "" + event.getSource();
-                        if(server.activate == false){
-                            client.connectToServer(pushedButton(position));
-                            server.iniciarServidor();
-                        } else{
-                            Alert dialAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                            dialAlert.setTitle("Espera");
-                            dialAlert.setHeaderText(null);
-                            dialAlert.setContentText("¡Aun no es tu turno!");
-                            dialAlert.initStyle(StageStyle.UTILITY);
-                            dialAlert.showAndWait();
+                        client.connectToServer(pushedButton(position));
+                        for(int x = 0; x < total; x++){
+                            String enemy = pushedButton(position);
+                            String enemyPosition = imgEnemyPosition[x];
+                            if(enemy.equals(enemyPosition)){
+                                enemyCount++;
+                                imgEnemyPosition[x] = "";
+                                if(enemyCount == total){
+                                    win = new WinScreen(true);
+                                    break;
+                                }
+                            }
+                        }
+                        if(enemyCount != total){
+                            String barco = server.iniciarServidor();
+                            for(int i = 0; i < total; i++){
+                                if(barco.equals(imgPositions[i])){
+                                    aliadeCount++;
+                                    imgPositions[i] = "";
+                                    if(aliadeCount == total){
+                                        win = new WinScreen(false);
+                                    }
+                                }
+                            }
+                            turn.show();
                         }
                     }
                 });

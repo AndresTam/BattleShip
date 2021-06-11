@@ -27,7 +27,7 @@ public class Main extends Application implements EventHandler<WindowEvent>{
     private Button btnLocal, btnNextScreen;
     private Label lblQuant, lblWelcome;
     private TextField txtQuant;
-    private ServidorSocket server;
+    public int ship = 0;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -70,8 +70,9 @@ public class Main extends Application implements EventHandler<WindowEvent>{
         btnNextScreen.setVisible(true);
         btnNextScreen.setOnAction(event -> {
             try{
-                int ship = Integer.parseInt(txtQuant.getText());
+                ship = Integer.parseInt(txtQuant.getText());
                 if(ship > 0 && ship < 100){
+                    hBoxAll.setVisible(false);
                     new ClienteSocket().connectToServer(ship);
                     new SelectionScreen(ship);
                 } else{
@@ -86,7 +87,7 @@ public class Main extends Application implements EventHandler<WindowEvent>{
                 Alert dialAlert = new Alert(Alert.AlertType.CONFIRMATION);
                 dialAlert.setTitle("Error");
                 dialAlert.setHeaderText(null);
-                dialAlert.setContentText("El valor ingresado debe ser numerico");
+                dialAlert.setContentText("El valor ingresado debe ser numerico y un numero entero");
                 dialAlert.initStyle(StageStyle.UTILITY);
                 dialAlert.showAndWait();
             }

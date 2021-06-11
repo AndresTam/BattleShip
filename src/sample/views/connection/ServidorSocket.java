@@ -10,22 +10,26 @@ public class ServidorSocket {
     private ServerSocket servidor;
     private Socket cliente;
     public Boolean activate = false;
+    private int ship = 0;
+    public String obj="", imgPosition[];
 
-    public void iniciarServidor(){
+    public String iniciarServidor(){
         try{
             servidor = new ServerSocket(6000);
-            System.out.println("Iniciando Juego....");
             activate = true;
             cliente = servidor.accept();
             PrintStream escritura = new PrintStream(cliente.getOutputStream());
-            escritura.println("Bienvenido, usted es el cliente:");
+            escritura.println("");
 
             BufferedReader entrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-            System.out.println(entrada.readLine());
+            obj = entrada.readLine();
+
             cliente.close();
             activate = false;
+            servidor.close();
         } catch (Exception ex){
             ex.printStackTrace();
         }
+        return obj;
     }
 }
