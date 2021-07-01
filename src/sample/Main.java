@@ -22,8 +22,8 @@ import sample.views.screens.SelectionScreen;
 public class Main extends Application implements EventHandler<WindowEvent>{
 
     private Scene escena;
-    private HBox hBoxAll, hBoxButtons, hBoxLabel;
-    private VBox vBox;
+    private HBox hBoxAll, hBoxButtons;
+    private VBox vBox, vBoxLabel;
     private Button btnLocal, btnNextScreen;
     private Label lblQuant, lblWelcome;
     private TextField txtQuant;
@@ -44,24 +44,32 @@ public class Main extends Application implements EventHandler<WindowEvent>{
     private void CreateMenu() {
         hBoxAll       = new HBox();
         hBoxButtons   = new HBox();
-        hBoxLabel     = new HBox();
+        hBoxButtons.setId("hBoxButtons");
+        vBoxLabel     = new VBox();
+        vBoxLabel.setId("vBoxLabel");
         vBox          = new VBox();
+        vBox.setId("vBox");
         lblQuant      = new Label("Ingresa la cantidad de barcos.\n El valor debe ser entre 1 y 90");
-        lblWelcome    = new Label("Vienvenido a Batalla Naval\n Selecciona que tipo de coneccion deseas aplicar");
+        lblQuant.setId("lblQuant");
+        lblWelcome    = new Label("Bienvenido a Batalla Naval");
+        lblWelcome.setId("lblWelcome");
         txtQuant      = new TextField();
         btnLocal      = new Button("Inicio");
+        btnLocal.setId("btnLocal");
         btnNextScreen = new Button("Siguiente");
+        btnNextScreen.setId("btnNextScreen");
         btnLocal.setOnAction(event -> localConnection());
         lblQuant.setVisible(false);
         txtQuant.setVisible(false);
         btnNextScreen.setVisible(false);
 
         hBoxButtons.getChildren().addAll(btnLocal);
-        hBoxLabel.getChildren().addAll(lblQuant, txtQuant);
-        vBox.getChildren().addAll(lblWelcome, hBoxButtons, hBoxLabel, btnNextScreen);
+        vBoxLabel.getChildren().addAll(lblQuant, txtQuant);
+        vBox.getChildren().addAll(lblWelcome, hBoxButtons, vBoxLabel, btnNextScreen);
         hBoxAll.getChildren().addAll(vBox);
 
         escena = new Scene(hBoxAll, 600, 300);
+        escena.getStylesheets().add(getClass().getResource("css/styles.css").toExternalForm());
     }
 
     public void localConnection(){

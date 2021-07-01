@@ -1,0 +1,67 @@
+.root{
+    -fx-background: #0d88a0;
+    -fx-alignment: center;
+}
+
+#vBox{
+    -fx-alignment: center;
+}
+
+#hBoxButtons{
+    -fx-alignment: center;
+    -fx-padding: 50px;
+}
+
+#vBoxLabel{
+    -fx-margin: 50px;
+    -fx-alignment: center;
+}
+
+#lblWelcome{
+    -fx-font-family: "Lucida Console";
+    -fx-text-fill: #fff;
+    -fx-font-size: 100;
+    -fx-font-weight: bold;
+}
+
+#btnLocal{
+    -fx-font-size: 50;
+    -fx-text-fill: #fff;
+    -fx-border-color: #13a6c3;
+    -fx-color: #13a6c3;
+}
+
+#lblQuant{
+    -fx-font-family: "Lucida Console";
+    -fx-text-fill: #fff;
+    -fx-font-size: 40;
+    -fx-font-weight: bold;
+}
+
+#btnNextScreen{
+    -fx-font-size: 30;
+    -fx-text-fill: #fff;
+    -fx-border-color: #13a6c3;
+    -fx-color: #13a6c3;
+}
+
+.button{
+    -fx-font-size: 15;
+    -fx-text-fill: #fff;
+    -fx-border-color: #13a6c3;
+    -fx-color: #13a6c3;
+}
+
+.label{
+    -fx-font-family: "Lucida Console";
+    -fx-text-fill: #fff;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}
+
+#lblInstructions{
+    -fx-font-family: "Lucida Console";
+    -fx-text-fill: #fff;
+    -fx-font-size: 40;
+    -fx-font-weight: bold;
+}

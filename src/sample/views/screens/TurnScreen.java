@@ -21,10 +21,12 @@ public class TurnScreen extends Stage implements EventHandler {
 
     public void UICreate() {
         lblInstructions = new Label("Turno del jugador 1");
+        lblInstructions.setId("lblInstructions");
         vBox            = new VBox();
 
         vBox.getChildren().addAll(lblInstructions);
-        escena = new Scene(vBox, 400,300);
+        escena = new Scene(vBox, 500,300);
+        escena.getStylesheets().add(getClass().getResource("../../css/styles.css").toExternalForm());
     }
 
     public void closeScreen(boolean flag){

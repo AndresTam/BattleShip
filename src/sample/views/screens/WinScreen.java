@@ -31,6 +31,7 @@ public class WinScreen extends Stage implements EventHandler {
             message = "Mala suerte, has perdido el juego";
         }
         lblInstructions = new Label(message);
+        lblInstructions.setId("lblInstructions");
         btnAcept        = new Button("Aceptar");
         vBox            = new VBox();
 
@@ -39,7 +40,8 @@ public class WinScreen extends Stage implements EventHandler {
         });
 
         vBox.getChildren().addAll(lblInstructions, btnAcept);
-        escena = new Scene(vBox,400,300);
+        escena = new Scene(vBox,500,300);
+        escena.getStylesheets().add(getClass().getResource("../../css/styles.css").toExternalForm());
     }
 
 

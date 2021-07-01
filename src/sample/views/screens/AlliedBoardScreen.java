@@ -76,6 +76,7 @@ public class AlliedBoardScreen extends Stage implements EventHandler {
         vBoxBtn.getChildren().addAll(lblInstructions,hBoxCoordinates, hBoxGrid);
 
         escena = new Scene(vBoxBtn, 850, 935);
+        escena.getStylesheets().add(getClass().getResource("../../css/styles.css").toExternalForm());
     }
 
     @Override

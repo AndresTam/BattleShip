@@ -36,7 +36,7 @@ public class SelectionScreen extends Stage implements EventHandler {
     }
 
     public void UICreate(int quant){
-        lblInstructions = new Label("Selecciona un campo con la coordenada 'n-n' para establecer el barco, tienes " + quant + " disponibles");
+        lblInstructions = new Label("Selecciona un campo con la coordenada 'n-n' para\nestablecer el barco, tienes " + quant + " disponibles");
         hBoxBtn         = new HBox[10];
         hBoxGrid        = new HBox();
         vBoxBtn         = new VBox();
@@ -116,6 +116,7 @@ public class SelectionScreen extends Stage implements EventHandler {
         vBoxBtn.getChildren().addAll(lblInstructions,hBoxCoordinates, hBoxGrid, btnContinue);
 
         escena = new Scene(vBoxBtn, 800, 980);
+        escena.getStylesheets().add(getClass().getResource("../../css/styles.css").toExternalForm());
     }
 
     private String pushedButton(String entrada){

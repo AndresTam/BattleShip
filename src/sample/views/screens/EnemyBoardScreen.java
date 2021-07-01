@@ -35,7 +35,7 @@ public class EnemyBoardScreen extends Stage implements EventHandler {
     }
 
     public void UICreate(String[] imgPositions, String[] imgEnemyPosition,int total){
-        lblInstructions = new Label("Esta es la pantalla de tus naves con la cantidad total establecida");
+        lblInstructions = new Label("Esta es la pantalla para seleccionar las posiciones enemigas");
         hBoxBtn         = new HBox[10];
         hBoxGrid        = new HBox();
         vBoxBtn         = new VBox();
@@ -107,6 +107,7 @@ public class EnemyBoardScreen extends Stage implements EventHandler {
         vBoxBtn.getChildren().addAll(lblInstructions,hBoxCoordinates, hBoxGrid);
 
         escena = new Scene(vBoxBtn, 850, 935);
+        escena.getStylesheets().add(getClass().getResource("../../css/styles.css").toExternalForm());
     }
 
     private String pushedButton(String entrada){
